@@ -22,9 +22,9 @@ function getRows(courses: CourseType[]) {
 export default function Courses({ data }: CoursesProps) {
   return (
     <div className="courses">
-      <div className="link-to" id="courses" />
+      <div className="link-to" id="certifications" />
       <div className="title">
-        <h3>Selected Courses</h3>
+        <h3>Certifications</h3>
       </div>
       <ul className="course-list">{getRows(data)}</ul>
     </div>

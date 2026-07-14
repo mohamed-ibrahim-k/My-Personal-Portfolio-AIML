@@ -7,39 +7,52 @@ export default function Hero() {
     <section className="hero">
       <div className="hero-content">
         <div className="hero-avatar">
-          <ThemePortrait width={160} height={160} priority />
+          <ThemePortrait width={170} height={170} priority />
         </div>
 
+        <p className="hero-greeting">Hi, I'm</p>
+
         <h1 className="hero-title">
-          <span className="hero-name">Michael D&apos;Angelo</span>
+          <span className="hero-name">Mohamed Ibrahim K</span>
         </h1>
 
         <p className="hero-tagline">
-          Member of the Technical Staff at{' '}
-          <a href="https://openai.com" className="hero-highlight">
-            OpenAI
-          </a>
-          , where I work on{' '}
-          <a href="https://promptfoo.dev" className="hero-highlight">
-            Promptfoo
-          </a>{' '}
-          and agent security.
+          AI / ML • Software Engineering • Project Management • Supply Chain
+        </p>
+
+        <p className="hero-description">
+          I'm an Electronics & Communication Engineering student at
+          <span className="hero-highlight"> SASTRA University</span> focused on
+          AI/ML, software engineering, project management, supply chain
+          management, cloud computing, and data analytics.
           <br />
-          Previously co-founded, scaled, and sold Promptfoo to OpenAI.
+          <br />
+          I've completed multiple AI/ML and software development courses, built
+          AI/ML projects, completed internships across research, project
+          management, and software engineering, and keep expanding through
+          certifications and hands-on work.
         </p>
 
         <div className="hero-chips">
-          <span className="hero-chip">YC Alum</span>
-          <span className="hero-chip">Stanford ICME</span>
-          <span className="hero-chip">Co-founded Arthena & Matroid</span>
+          <span className="hero-chip">AI & Machine Learning</span>
+          <span className="hero-chip">Software Engineering</span>
+          <span className="hero-chip">Project Management</span>
+          <span className="hero-chip">Supply Chain</span>
+          <span className="hero-chip">Cloud & DevOps</span>
+          <span className="hero-chip">Open to Opportunities</span>
         </div>
 
         <div className="hero-cta">
-          <Link href="/about" className="button">
+          <Link href="/#about" className="button">
             About Me
           </Link>
+
           <Link href="/resume" className="button button-secondary">
-            View Resume
+            Download Resume
+          </Link>
+
+          <Link href="/#contact" className="button button-outline">
+            Contact Me
           </Link>
         </div>
       </div>

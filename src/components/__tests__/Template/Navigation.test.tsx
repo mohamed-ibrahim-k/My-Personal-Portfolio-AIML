@@ -31,20 +31,34 @@ describe('Navigation', () => {
 
   it('renders the logo link to home', () => {
     render(<Navigation />);
-    const logo = screen.getByRole('link', { name: /md/i });
+    const logo = screen.getByRole('link', { name: /mi/i });
     expect(logo).toHaveAttribute('href', '/');
   });
 
   it('renders navigation links for all non-index routes', () => {
     render(<Navigation />);
 
-    // Should have links for About, Resume, Writing, Stats, Contact, Archive
-    expect(screen.getByRole('link', { name: /about/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /resume/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /archive/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /writing/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /stats/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /contact/i })).toBeInTheDocument();
+    // Should have links for About, Resume, Internships, Contact, Projects
+    expect(screen.getByRole('link', { name: /about/i })).toHaveAttribute(
+      'href',
+      '/#about',
+    );
+    expect(screen.getByRole('link', { name: /resume/i })).toHaveAttribute(
+      'href',
+      '/#resume',
+    );
+    expect(screen.getByRole('link', { name: /internships/i })).toHaveAttribute(
+      'href',
+      '/#internships',
+    );
+    expect(screen.getByRole('link', { name: /projects/i })).toHaveAttribute(
+      'href',
+      '/#projects',
+    );
+    expect(screen.getByRole('link', { name: /contact/i })).toHaveAttribute(
+      'href',
+      '/#contact',
+    );
   });
 
   it('marks home route as active when on homepage', () => {
@@ -63,6 +77,7 @@ describe('Navigation', () => {
     const aboutLink = screen.getByRole('link', { name: /about/i });
     expect(aboutLink).toHaveClass('active');
     expect(aboutLink).toHaveAttribute('aria-current', 'page');
+    expect(aboutLink).toHaveAttribute('href', '/about');
   });
 
   it('marks nested routes as active', () => {

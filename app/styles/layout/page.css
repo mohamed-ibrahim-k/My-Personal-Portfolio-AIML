@@ -23,9 +23,20 @@
   max-width: 56rem;
 }
 
+.page-main--home {
+  max-width: min(1120px, calc(100% - 2rem));
+  padding-top: 0;
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 5.5rem;
+}
+
 @media screen and (min-width: 736px) {
   .page-main {
     padding: 3rem 2rem;
+  }
+
+  .page-main--home {
+    max-width: min(1120px, calc(100% - 4rem));
   }
 }
 

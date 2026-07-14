@@ -43,4 +43,15 @@
     color: var(--color-accent-hover);
     background-image: linear-gradient(transparent calc(100% - 1.5px), var(--color-accent) 1.5px);
   }
+
+  /* Reset animated underline for non-text links */
+  .button,
+  .nav-link,
+  .site-logo,
+  .icons a,
+  .about-section-heading-link,
+  .about-section-nav-link,
+  .contact-email-link {
+    background-image: none;
+  }
 }

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 
-import Cell from '@/components/Projects/Cell';
 import { SchemaGraph } from '@/components/Schema';
 import PageWrapper from '@/components/Template/PageWrapper';
 import data from '@/data/projects';
@@ -15,63 +14,70 @@ import {
 const PROJECTS_URL = `${SITE_URL}/projects/`;
 
 const PROJECTS_DESCRIPTION =
-  "Early projects and experiments from Michael D'Angelo (2015 and earlier).";
+  'Focus areas and representative work themes for Mohamed Ibrahim K across AI, software engineering, project management, and supply chain management.';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Archive',
+  title: 'Projects',
   description: PROJECTS_DESCRIPTION,
   path: '/projects/',
 });
 
 export default function ProjectsPage() {
-  const featuredProjects = data.filter((p) => p.featured);
-  const otherProjects = data.filter((p) => !p.featured);
-
   return (
     <PageWrapper>
       <SchemaGraph
         nodes={[
           collectionPageNode({
             url: PROJECTS_URL,
-            name: 'Archive',
+            name: 'Projects',
             description: PROJECTS_DESCRIPTION,
             hasBreadcrumb: true,
           }),
           breadcrumbNode(PROJECTS_URL, [
             { name: 'Home', url: HOME_URL },
-            { name: 'Archive', url: PROJECTS_URL },
+            { name: 'Projects', url: PROJECTS_URL },
           ]),
         ]}
       />
       <section className="projects-page">
         <header className="projects-header">
-          <h1 className="page-title">Archive</h1>
+          <h1 className="page-title">Projects</h1>
           <p className="page-subtitle">
-            Early projects and experiments from my student years
+            Representative themes and the technologies I keep building with.
           </p>
         </header>
 
-        {featuredProjects.length > 0 && (
-          <section className="projects-featured">
-            <h2 className="projects-section-title">Hackathons &amp; Awards</h2>
-            <div className="projects-grid projects-grid--featured">
-              {featuredProjects.map((project) => (
-                <Cell data={project} key={project.title} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {otherProjects.length > 0 && (
-          <section className="projects-other">
-            <h2 className="projects-section-title">Side Projects</h2>
-            <div className="projects-grid">
-              {otherProjects.map((project) => (
-                <Cell data={project} key={project.title} />
-              ))}
-            </div>
-          </section>
-        )}
+        <div className="projects-grid projects-grid--featured">
+          {data.map((project) => (
+            <article
+              key={project.title}
+              className="project-card project-card--static"
+            >
+              <div className="project-card-static">
+                <div className="project-card-content">
+                  <header className="project-card-header">
+                    <h3 className="project-card-title">{project.title}</h3>
+                    {project.subtitle ? (
+                      <p className="project-card-subtitle">
+                        {project.subtitle}
+                      </p>
+                    ) : null}
+                  </header>
+                  <p className="project-card-desc">{project.desc}</p>
+                  {project.tech?.length ? (
+                    <div className="project-card-tech">
+                      {project.tech.map((tech) => (
+                        <span key={tech} className="tech-tag">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
     </PageWrapper>
   );

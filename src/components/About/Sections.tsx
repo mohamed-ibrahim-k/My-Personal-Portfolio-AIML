@@ -1,6 +1,7 @@
 'use client';
 
 import Markdown from 'markdown-to-jsx';
+import { useEffect, useState } from 'react';
 import { createUniqueHeadingIds } from '@/lib/anchors';
 
 interface AboutContentProps {
@@ -85,6 +86,39 @@ function getSectionClassName(title: string) {
 
 export default function AboutContent({ markdown }: AboutContentProps) {
   const { intro, sections } = splitAboutMarkdown(markdown);
+  const [activeSection, setActiveSection] = useState<string>('');
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined' || sections.length === 0) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+
+        if (visibleEntries.length > 0) {
+          const target = visibleEntries.reduce((prev, current) =>
+            current.intersectionRatio > prev.intersectionRatio ? current : prev,
+          );
+          setActiveSection(target.target.id);
+        }
+      },
+      {
+        rootMargin: '-20% 0px -60% 0px',
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      },
+    );
+
+    sections.forEach((section) => {
+      const element = document.getElementById(section.id);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, [sections]);
 
   return (
     <article className="about-content">
@@ -99,7 +133,7 @@ export default function AboutContent({ markdown }: AboutContentProps) {
             <a
               key={section.id}
               href={`#${section.id}`}
-              className="about-section-nav-link"
+              className={`about-section-nav-link ${activeSection === section.id ? 'active' : ''}`}
             >
               {section.title}
             </a>
@@ -112,7 +146,10 @@ export default function AboutContent({ markdown }: AboutContentProps) {
           className={getSectionClassName(section.title)}
         >
           <h2 id={section.id}>
-            <a href={`#${section.id}`} className="about-section-heading-link">
+            <a
+              href={`#${section.id}`}
+              className={`about-section-heading-link ${activeSection === section.id ? 'active' : ''}`}
+            >
               <span>{section.title}</span>
               <span className="about-section-heading-hash" aria-hidden="true">
                 #

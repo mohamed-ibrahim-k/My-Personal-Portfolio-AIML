@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-
+import work from '@/data/resume/work';
 import type { Post } from '@/lib/posts';
 import {
   BLOG_ID,
@@ -81,6 +81,30 @@ const mockPost: Post = {
   content: 'Article content here',
 };
 
+function readImageDimensions(filePath: string) {
+  const ext = path.extname(filePath).toLowerCase();
+  if (ext === '.svg') {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const widthMatch = content.match(/width="([^"]+)"/);
+    const heightMatch = content.match(/height="([^"]+)"/);
+    const viewBoxMatch = content.match(/viewBox="[^"]*?\b(\d+)\s+(\d+)"/);
+
+    const width = widthMatch
+      ? parseInt(widthMatch[1], 10)
+      : viewBoxMatch
+        ? parseInt(viewBoxMatch[1], 10)
+        : 1024;
+    const height = heightMatch
+      ? parseInt(heightMatch[1], 10)
+      : viewBoxMatch
+        ? parseInt(viewBoxMatch[2], 10)
+        : 1024;
+
+    return { width, height };
+  }
+  return readJpegDimensions(filePath);
+}
+
 describe('personNode', () => {
   it('is a Person with a stable @id', () => {
     const node = personNode();
@@ -91,15 +115,17 @@ describe('personNode', () => {
   it('uses author name and split given/family names', () => {
     const node = personNode();
     expect(node.name).toBe(AUTHOR_NAME);
-    expect(node.givenName).toBe('Michael');
-    expect(node.familyName).toBe("D'Angelo");
+    const [expectedGivenName, ...expectedFamilyParts] = AUTHOR_NAME.split(' ');
+    const expectedFamilyName = expectedFamilyParts.join(' ');
+    expect(node.givenName).toBe(expectedGivenName);
+    expect(node.familyName).toBe(expectedFamilyName);
   });
 
   it('exposes an ImageObject and social sameAs links', () => {
     const node = personNode();
     const image = node.image as Record<string, unknown>;
     expect(image['@type']).toBe('ImageObject');
-    expect(image.url).toBe(`${SITE_URL}/images/me.jpg`);
+    expect(image.url).toBe(`${SITE_URL}${SITE_IMAGE_PATH}`);
     expect(image.width).toBe(SITE_IMAGE_DIMENSIONS.width);
     expect(image.height).toBe(SITE_IMAGE_DIMENSIONS.height);
     expect(Array.isArray(node.sameAs)).toBe(true);
@@ -110,7 +136,7 @@ describe('personNode', () => {
     const node = personNode();
     const worksFor = node.worksFor as Record<string, unknown>;
     expect(worksFor['@type']).toBe('Organization');
-    expect(worksFor.name).toBe('OpenAI');
+    expect(worksFor.name).toBe(work[0].name);
     const alumniOf = node.alumniOf as Record<string, unknown>[];
     expect(alumniOf[0]['@type']).toBe('CollegeOrUniversity');
   });
@@ -200,7 +226,7 @@ describe('blogPostingNode', () => {
   it('uses an ImageObject mirroring the OG image with dimensions', () => {
     const image = blogPostingNode(mockPost).image as Record<string, unknown>;
     expect(image['@type']).toBe('ImageObject');
-    expect(image.url).toBe(`${SITE_URL}/images/me.jpg`);
+    expect(image.url).toBe(`${SITE_URL}${SITE_IMAGE_PATH}`);
     expect(image.width).toBe(SITE_IMAGE_DIMENSIONS.width);
     expect(image.height).toBe(SITE_IMAGE_DIMENSIONS.height);
   });
@@ -252,6 +278,6 @@ describe('site image metadata', () => {
       SITE_IMAGE_PATH.replace(/^\//, ''),
     );
 
-    expect(SITE_IMAGE_DIMENSIONS).toEqual(readJpegDimensions(imagePath));
+    expect(SITE_IMAGE_DIMENSIONS).toEqual(readImageDimensions(imagePath));
   });
 });

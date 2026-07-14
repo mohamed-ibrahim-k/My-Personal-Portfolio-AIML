@@ -42,13 +42,13 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   keywords: [
     AUTHOR_NAME,
-    'OpenAI',
-    'Promptfoo',
-    'agent security',
-    'LLM security',
-    'machine learning',
-    'startup founder',
-    'YC',
+    'Artificial Intelligence',
+    'Machine Learning',
+    'Software Engineering',
+    'Project Management',
+    'Supply Chain Management',
+    'Cloud Computing',
+    'Data Analytics',
   ],
   authors: [{ name: AUTHOR_NAME }],
   creator: AUTHOR_NAME,
@@ -70,12 +70,16 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    site: TWITTER_HANDLE,
-    creator: TWITTER_HANDLE,
-    title: AUTHOR_NAME,
-    description: SITE_DESCRIPTION,
-    images: [SITE_IMAGE_PATH],
+    ...(TWITTER_HANDLE
+      ? {
+          card: 'summary_large_image',
+          site: TWITTER_HANDLE,
+          creator: TWITTER_HANDLE,
+          title: AUTHOR_NAME,
+          description: SITE_DESCRIPTION,
+          images: [SITE_IMAGE_PATH],
+        }
+      : {}),
   },
   robots: {
     index: true,

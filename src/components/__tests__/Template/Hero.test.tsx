@@ -15,39 +15,32 @@ describe('Hero', () => {
     render(<Hero />);
 
     const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toHaveTextContent("Michael D'Angelo");
+    expect(heading).toHaveTextContent('Mohamed Ibrahim K');
   });
 
-  it('renders the tagline with OpenAI and promptfoo links', () => {
+  it('displays SASTRA University highlight in description', () => {
     render(<Hero />);
 
-    const openAiLink = screen.getByRole('link', { name: /openai/i });
-    expect(openAiLink).toHaveAttribute('href', 'https://openai.com');
-    expect(openAiLink).toHaveClass('hero-highlight');
-
-    const promptfooLink = screen.getByRole('link', { name: /promptfoo/i });
-    expect(promptfooLink).toHaveAttribute('href', 'https://promptfoo.dev');
-    expect(promptfooLink).toHaveClass('hero-highlight');
+    const sastra = screen.getByText(/sastra university/i);
+    expect(sastra).toHaveClass('hero-highlight');
   });
 
   it('displays hero chips for credentials', () => {
     render(<Hero />);
 
-    expect(screen.getByText('YC Alum')).toBeInTheDocument();
-    expect(screen.getByText('Stanford ICME')).toBeInTheDocument();
-    expect(
-      screen.getByText('Co-founded Arthena & Matroid'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('AI & Machine Learning')).toBeInTheDocument();
+    expect(screen.getByText('Software Engineering')).toBeInTheDocument();
+    expect(screen.getByText('Project Management')).toBeInTheDocument();
   });
 
   it('renders CTA buttons with correct links', () => {
     render(<Hero />);
 
     const aboutButton = screen.getByRole('link', { name: /about me/i });
-    expect(aboutButton).toHaveAttribute('href', '/about');
+    expect(aboutButton).toHaveAttribute('href', '/#about');
     expect(aboutButton).toHaveClass('button');
 
-    const resumeButton = screen.getByRole('link', { name: /view resume/i });
+    const resumeButton = screen.getByRole('link', { name: /download resume/i });
     expect(resumeButton).toHaveAttribute('href', '/resume');
     expect(resumeButton).toHaveClass('button-secondary');
   });

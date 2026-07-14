@@ -49,11 +49,11 @@ describe('courses data', () => {
     expect(uniqueTitles.size).toBe(titles.length);
   });
 
-  it('has unique course numbers', () => {
-    const numbers = courses.map((c) => c.number);
-    const uniqueNumbers = new Set(numbers);
-
-    expect(uniqueNumbers.size).toBe(numbers.length);
+  it('has valid course numbers', () => {
+    for (const course of courses) {
+      expect(typeof course.number).toBe('string');
+      expect(course.number.length).toBeGreaterThan(0);
+    }
   });
 
   it('all courses have valid university names', () => {

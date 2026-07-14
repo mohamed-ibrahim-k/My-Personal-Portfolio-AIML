@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import Courses from '@/components/Resume/Courses';
 import Education from '@/components/Resume/Education';
 import Experience from '@/components/Resume/Experience';
-import References from '@/components/Resume/References';
 import ResumeNav from '@/components/Resume/ResumeNav';
 import Skills from '@/components/Resume/Skills';
 import PageWrapper from '@/components/Template/PageWrapper';
@@ -16,23 +15,33 @@ import { createPageMetadata } from '@/lib/metadata';
 export const metadata: Metadata = createPageMetadata({
   title: 'Resume',
   description:
-    "Michael D'Angelo's Resume. OpenAI, Promptfoo, Smile ID, Arthena, Matroid, Stanford ICME, YC alum.",
+    'Mohamed Ibrahim K Resume. B.Tech ECE at SASTRA University, AI/ML, software engineering, project management, and supply chain interests.',
   path: '/resume/',
 });
 
 export default function ResumePage() {
+  const orderedWork = [...work].sort((a, b) => {
+    const priority = new Map([
+      ['Software Engineering Intern', 0],
+      ['Project Management Intern', 1],
+      ['Research Intern', 2],
+      ['Core Team Member, Infrastructure, Logistics & Finance', 3],
+      ['B.Tech ECE Student', 4],
+    ]);
+
+    return (priority.get(a.position) ?? 99) - (priority.get(b.position) ?? 99);
+  });
+
   return (
     <PageWrapper>
       <section className="resume-page">
         <header className="resume-header">
           <h1 className="resume-title">Resume</h1>
           <p className="resume-summary">
-            Engineering leader with 15+ years building products across AI,
-            security, and infrastructure. Currently Member of the Technical
-            Staff at OpenAI, where I work on Promptfoo and agent security.
-            Previously co-founded Promptfoo, built it into an AI security
-            platform, and sold it to OpenAI. Stanford MS, YC alum, previously VP
-            Engineering.
+            Electronics and Communication Engineering undergraduate at SASTRA
+            University with a broad profile across AI/ML, software engineering,
+            project management, supply chain management, cloud computing, and
+            data analytics.
           </p>
         </header>
 
@@ -40,7 +49,7 @@ export default function ResumePage() {
 
         <div className="resume-content">
           <section id="experience" className="resume-section">
-            <Experience data={work} />
+            <Experience data={orderedWork} />
           </section>
 
           <section id="education" className="resume-section">
@@ -53,10 +62,6 @@ export default function ResumePage() {
 
           <section id="courses" className="resume-section">
             <Courses data={courses} />
-          </section>
-
-          <section id="references" className="resume-section">
-            <References />
           </section>
         </div>
       </section>

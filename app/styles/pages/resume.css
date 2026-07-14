@@ -20,8 +20,7 @@
 .resume-page .education .title,
 .resume-page .experience .title,
 .resume-page .skills .title,
-.resume-page .courses .title,
-.resume-page .references .title {
+.resume-page .courses .title {
   margin-bottom: 2.5rem;
   text-align: center;
 }
@@ -29,8 +28,7 @@
 .resume-page .education .title h3,
 .resume-page .experience .title h3,
 .resume-page .skills .title h3,
-.resume-page .courses .title h3,
-.resume-page .references .title h3 {
+.resume-page .courses .title h3 {
   font-size: var(--text-3xl);
   font-weight: var(--font-weight-black);
   letter-spacing: var(--tracking-tight);
@@ -65,10 +63,6 @@
   .resume-page .courses .course-list {
     grid-template-columns: 1fr;
   }
-}
-
-.resume-page .references {
-  margin: var(--spacing-8) 0;
 }
 
 /* Resume page specific */
@@ -172,4 +166,51 @@
 .resume-section:first-child {
   border-top: none;
   padding-top: 0;
+}
+
+.resume-page .education .degree-container,
+.resume-page .projects-page .project-card--static,
+.resume-page .projects-page .project-card,
+.resume-page .projects-page .project-card-static,
+.resume-page .project-card--static,
+.resume-page .project-card-static,
+.resume-page .degree-container,
+.resume-page .jobs-container,
+.resume-page .courses .course-container a {
+  border-radius: var(--radius-xl);
+}
+
+.resume-page .education .degree-container {
+  padding: 1.5rem;
+  background: color-mix(in srgb, var(--color-bg-alt) 78%, transparent);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1rem;
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.resume-page .education .degree-container:hover {
+  transform: translateY(var(--lift-sm));
+  border-color: var(--color-accent-border);
+  box-shadow: var(--shadow-lg);
+}
+
+.resume-page .education .degree {
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  line-height: 1.25;
+}
+
+.resume-page .education .school {
+  font-size: var(--text-base);
+}
+
+.resume-page .courses .course-container a {
+  min-height: 100%;
+}
+
+.resume-page .references {
+  display: none;
 }

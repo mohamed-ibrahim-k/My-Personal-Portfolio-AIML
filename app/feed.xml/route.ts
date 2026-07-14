@@ -19,25 +19,15 @@ function formatRssDate(dateStr: string): string {
   return date.toUTCString();
 }
 
-interface FeedItem {
-  title: string;
-  url: string;
-  date: string;
-  description: string;
-}
-
 export async function GET() {
-  // Get internal posts
-  const internalPosts = getAllPosts();
-  const internalItems: FeedItem[] = internalPosts.map((post) => ({
+  const localPosts = getAllPosts().map((post) => ({
     title: post.title,
     url: `${SITE_URL}/writing/${post.slug}/`,
     date: post.date,
     description: post.description,
   }));
 
-  // Get external articles
-  const externalItems: FeedItem[] = writing
+  const externalPosts = writing
     .filter((item) => item.date)
     .map((item) => ({
       title: item.title,
@@ -46,10 +36,9 @@ export async function GET() {
       description: item.description,
     }));
 
-  // Merge and sort
-  const items = [...internalItems, ...externalItems]
-    .filter((item) => item.date)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const items = [...localPosts, ...externalPosts].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
 
   const rssItems = items
     .map(
@@ -67,9 +56,9 @@ export async function GET() {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Michael D'Angelo - Writing</title>
+    <title>Mohamed Ibrahim K - Notes</title>
     <link>${SITE_URL}/writing/</link>
-    <description>Articles on AI security, LLM red teaming, and trust &amp; safety by Michael D'Angelo.</description>
+    <description>Notes and future articles by Mohamed Ibrahim K.</description>
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>${rssItems}

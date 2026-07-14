@@ -55,7 +55,7 @@
 }
 
 .about-content .about-section-nav-link:hover {
-  background: var(--color-surface-hover);
+  background-color: var(--color-surface-hover);
   color: var(--color-fg-bold);
 }
 
@@ -90,7 +90,7 @@
 
 .about-content .about-section-heading-link:hover,
 .about-content .about-section-heading-link:focus-visible {
-  color: var(--color-fg-bold);
+  color: var(--color-accent);
   text-decoration: none;
 }
 
@@ -110,8 +110,24 @@
 }
 
 .about-section:hover .about-section-heading-hash,
-.about-content .about-section-heading-link:focus-visible .about-section-heading-hash {
+.about-content .about-section-heading-link:hover .about-section-heading-hash,
+.about-content .about-section-heading-link:focus-visible .about-section-heading-hash,
+.about-section h2:target .about-section-heading-hash,
+.about-content .about-section-heading-link.active .about-section-heading-hash {
   opacity: 1;
+}
+
+.about-content .about-section-heading-link:hover .about-section-heading-hash,
+.about-content .about-section-heading-link:focus-visible .about-section-heading-hash,
+.about-section h2:target .about-section-heading-hash,
+.about-content .about-section-heading-link.active .about-section-heading-hash {
+  color: var(--color-accent);
+}
+
+.about-content .about-section-nav-link.active {
+  background-color: var(--color-accent-light);
+  color: var(--color-accent);
+  font-weight: var(--font-weight-bold);
 }
 
 .about-content p {
@@ -153,14 +169,15 @@
   text-decoration-color: var(--color-border-alt);
   text-underline-offset: 2px;
   text-decoration-thickness: 1px;
+  background-image: none;
   transition:
     text-decoration-color var(--duration-fast) var(--ease-out),
     color var(--duration-fast) var(--ease-out);
 }
 
 .about-content a:hover {
-  text-decoration-color: var(--color-accent-underline-strong);
-  color: var(--color-fg-bold);
+  text-decoration-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 .contact-page {

@@ -30,7 +30,7 @@ describe('Courses', () => {
     render(<Courses data={mockCourses} />);
 
     expect(
-      screen.getByRole('heading', { name: /selected courses/i }),
+      screen.getByRole('heading', { name: /certifications/i }),
     ).toBeInTheDocument();
   });
 
@@ -72,7 +72,7 @@ describe('Courses', () => {
   it('has anchor link for navigation', () => {
     render(<Courses data={mockCourses} />);
 
-    const anchor = document.getElementById('courses');
+    const anchor = document.getElementById('certifications');
     expect(anchor).toBeInTheDocument();
   });
 });

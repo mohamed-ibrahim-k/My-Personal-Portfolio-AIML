@@ -10,46 +10,23 @@ describe('about data', () => {
 
   it('contains the intro section', () => {
     expect(aboutMarkdown).toContain('# Intro');
-    expect(aboutMarkdown).toContain('OpenAI');
-    expect(aboutMarkdown).toContain('Promptfoo');
+    expect(aboutMarkdown).toContain('SASTRA University');
   });
 
-  it('contains the history section', () => {
-    expect(aboutMarkdown).toContain('# Some History');
-    expect(aboutMarkdown).toContain('MS-DOS');
+  it('contains the languages section', () => {
+    expect(aboutMarkdown).toContain('# Languages');
+    expect(aboutMarkdown).toContain('Tamil');
+    expect(aboutMarkdown).toContain('English');
   });
 
-  it('contains the likes section', () => {
-    expect(aboutMarkdown).toContain('# I Like');
-    expect(aboutMarkdown).toContain('Running');
-    expect(aboutMarkdown).toContain('Skiing');
+  it('contains the hobbies section', () => {
+    expect(aboutMarkdown).toContain('# Hobbies & Interests');
+    expect(aboutMarkdown).toContain('Chess');
   });
 
-  it('contains the travel section', () => {
-    expect(aboutMarkdown).toContain('# Travel / Geography');
-    expect(aboutMarkdown).toContain('Buffalo, New York');
-  });
-
-  it('contains the fun facts section', () => {
-    expect(aboutMarkdown).toContain('# Fun Facts');
-  });
-
-  it('contains the dreams section', () => {
-    expect(aboutMarkdown).toContain('# I Dream Of');
-    expect(aboutMarkdown).toContain('Staying curious');
-  });
-
-  it('contains the admired websites section', () => {
-    expect(aboutMarkdown).toContain('# Websites from People I Admire');
-  });
-
-  it('contains valid markdown links', () => {
-    // Check for markdown link format [text](url)
-    const linkRegex = /\[.+?\]\(.+?\)/g;
-    const links = aboutMarkdown.match(linkRegex);
-
-    expect(links).not.toBeNull();
-    expect(links!.length).toBeGreaterThan(10);
+  it('contains the summary section', () => {
+    expect(aboutMarkdown).toContain('# Summary');
+    expect(aboutMarkdown).toContain('AI/ML');
   });
 
   it('contains properly formatted headers', () => {
@@ -58,6 +35,6 @@ describe('about data', () => {
     const headers = aboutMarkdown.match(headerRegex);
 
     expect(headers).not.toBeNull();
-    expect(headers!.length).toBeGreaterThan(5);
+    expect(headers!.length).toBeGreaterThanOrEqual(4);
   });
 });

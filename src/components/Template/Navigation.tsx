@@ -11,6 +11,14 @@ import ThemeToggle from './ThemeToggle';
 export default function Navigation() {
   const pathname = usePathname();
 
+  const getHref = (path: string, sectionId?: string) => {
+    if (pathname === '/' && sectionId) {
+      return `/#${sectionId}`;
+    }
+
+    return path;
+  };
+
   const isActive = (path: string) => {
     if (path === '/') return pathname === '/';
     return pathname?.startsWith(path);
@@ -19,7 +27,7 @@ export default function Navigation() {
   return (
     <header className="site-header">
       <Link href="/" className="site-logo">
-        <span className="logo-text">MD</span>
+        <span className="logo-text">MI</span>
       </Link>
 
       <nav className="nav-links">
@@ -28,7 +36,7 @@ export default function Navigation() {
           .map((l) => (
             <Link
               key={l.label}
-              href={l.path}
+              href={getHref(l.path, l.sectionId)}
               className={`nav-link ${isActive(l.path) ? 'active' : ''}`}
               aria-current={isActive(l.path) ? 'page' : undefined}
             >

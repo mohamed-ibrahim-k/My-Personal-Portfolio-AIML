@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -12,10 +13,19 @@ const MENU_ID = 'mobile-nav-menu';
 export default function Hamburger() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const getHref = (path: string, sectionId?: string) => {
+    if (pathname === '/' && sectionId) {
+      return `/#${sectionId}`;
+    }
+
+    return path;
+  };
 
   const toggleMenu = useCallback(() => setOpen((prev) => !prev), []);
   const closeMenu = useCallback(() => setOpen(false), []);
@@ -25,7 +35,7 @@ export default function Hamburger() {
       <ul className="hamburger-ul">
         {routes.map((l) => (
           <li key={l.label}>
-            <Link href={l.path} onClick={closeMenu}>
+            <Link href={getHref(l.path, l.sectionId)} onClick={closeMenu}>
               <h3 className={l.index ? 'index-li' : undefined}>{l.label}</h3>
             </Link>
           </li>

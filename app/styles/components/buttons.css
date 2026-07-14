@@ -28,6 +28,7 @@
     text-align: center;
     text-decoration: none !important;
     transition:
+      color var(--duration-fast) var(--ease-out),
       transform var(--duration-fast) var(--ease-out),
       box-shadow var(--duration-fast) var(--ease-out),
       background-color var(--duration-fast) var(--ease-out);
@@ -52,15 +53,17 @@
     outline: none;
   }
 
-  /* Secondary/ghost button variant */
-  .button-secondary {
+  /* Secondary/ghost and outline button variants */
+  .button-secondary,
+  .button-outline {
     background: transparent;
     box-shadow: inset 0 0 0 1.5px var(--color-border-alt);
     color: var(--color-fg-light);
     font-weight: var(--font-weight-medium);
   }
 
-  .button-secondary:hover {
+  .button-secondary:hover,
+  .button-outline:hover {
     background: var(--color-accent-light);
     box-shadow: inset 0 0 0 1.5px var(--color-accent);
     color: var(--color-accent);

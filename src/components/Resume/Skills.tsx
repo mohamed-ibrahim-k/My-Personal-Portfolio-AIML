@@ -124,7 +124,7 @@ export default function Skills({ skills, categories }: SkillsProps) {
               <div className="skill-tags">
                 {categorySkills.map((skill) => (
                   <SkillTag
-                    key={skill.title}
+                    key={`${skill.title}-${skill.category.join('|')}`}
                     data={skill}
                     categories={categories}
                   />
